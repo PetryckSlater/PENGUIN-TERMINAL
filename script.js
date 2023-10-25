@@ -11,8 +11,10 @@ loginBtn.addEventListener('click', () => {
     container.classList.remove("active");
 });
 
+// Json server
+
 $(document).ready(function () {
-    const baseUrl = '/js/db.json'; // Certifique-se de que essa URL corresponda à sua configuração do JSON Server.
+    const baseUrl = 'http://localhost:4000'; // Certifique-se de que essa URL corresponda à sua configuração do JSON Server.
 
     // Função para alternar entre as telas de login e registro.
     function toggleLoginRegister() {
@@ -32,13 +34,13 @@ $(document).ready(function () {
         const name = $('#signupName').val();
         const email = $('#signupEmail').val();
         const password = $('#signupPassword').val();
-
+        const baseUrl2 = 'http://localhost:4000/users';
         // Envia uma solicitação POST para registrar o usuário no JSON Server.
         $.ajax({
-            url: baseUrl,
+            url: baseUrl2,
             type: 'POST',
             data: JSON.stringify({
-                id: id++,
+                id: 50,
                 name: name,
                 email: email,
                 password: password
