@@ -13,93 +13,69 @@
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"
-      integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e"
+      integrity="sha384-b6lVK+ycr+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e"
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="https://xtermjs.org/css/xterm.css" />
     <script src="https://xtermjs.org/js/xterm.js"></script>
   </head>
-  <body data-bs-theme="dark">
+  <body class="dark-theme">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Logo</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Dropdown link
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
-            </li>
-          </ul>
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Pesquisar" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Pesquisar</button>
-          </form>
-        </div>
-      </div>
-      <div class="form-check form-switch mx-4">
-        <input
-          class="form-check-input p-2"
-          type="checkbox"
-          role="switch"
-          id="flexSwitchCheckChecked"
-          checked
-          onclick="myFunction()"
-        />
-      </div>
+      <!-- ... (seu código navbar) -->
     </nav>
     <div class="container">
       <h1>Terminal</h1>
       <div id="terminal"></div>
     </div>
-    <button type="button" style="position: fixed; right:3rem; bottom: 3rem" class="btn btn-primary">Primary</button>
-
+    <button type="button" style="position: fixed; right: 3rem; bottom: 3rem" class="btn btn-primary">Primary</button>
+    
     <script>
       function myFunction() {
         var element = document.body;
-        element.dataset.bsTheme =
-          element.dataset.bsTheme == "light" ? "dark" : "light";
+        element.classList.toggle("light-theme");
+        element.classList.toggle("dark-theme");
       }
-      function stepFunction(event) {
-        debugger;
-        var element = document.getElementsByClassName("collapse");
-        for (var i = 0; i < element.length; i++) {
-          if (element[i] !== event.target.ariaControls) {
-            element[i].classList.remove("show");
-          }
-        }
-      }
+
+      // Resto do seu código JavaScript
     </script>
-  
-    <script
-      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-      integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
-      integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
-      crossorigin="anonymous"
-    ></script>
-      <script>
-        var term = new Terminal();
-        term.open(document.getElementById('terminal'));
-        term.write('Hello from \x1B[1;3;31mxterm.js\x1B[0m $ ')
-      </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    
+    <script>
+      var term = new Terminal();
+      term.open(document.getElementById('terminal'));
+      term.write('Hello from \x1B[1;3;31mxterm.js\x1B[0m $ ');
+
+      var prompt = '$ '; // Prompt do terminal
+      var currentInput = '';
+
+      term.onKey(e => {
+        const printable = !e.domEvent.altKey && !e.domEvent.ctrlKey && !e.domEvent.metaKey;
+
+        if (e.domEvent.key === 'Enter') {
+          term.writeln('');
+          term.write(prompt + currentInput);
+
+          // Verifica se o comando é "pwd" e executa a lógica apropriada
+          if (currentInput.trim() === 'pwd') {
+            term.writeln('/path/to/your/current/directory'); // Substitua pelo diretório atual real
+          } else {
+            term.writeln('Comando não reconhecido: ' + currentInput);
+          }
+
+          currentInput = '';
+        } else if (e.domEvent.key === 'Backspace') {
+          if (currentInput.length > 0) {
+            currentInput = currentInput.slice(0, -1);
+            term.write('\b \b');
+          }
+        } else if (printable) {
+          currentInput += e.key;
+          term.write(e.key);
+        }
+      });
+    </script>
   </body>
-  
 </html>
