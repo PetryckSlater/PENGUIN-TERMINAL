@@ -40,7 +40,7 @@ $(document).ready(function () {
             url: baseUrl2,
             type: 'POST',
             data: JSON.stringify({
-                id: 50,
+
                 name: name,
                 email: email,
                 password: password
@@ -63,9 +63,10 @@ $(document).ready(function () {
         e.preventDefault();
         const email = $('#loginEmail').val();
         const password = $('#loginPassword').val();
+        const baseUrl2 = 'http://localhost:4000/users';
 
         // Enviar uma solicitação GET para verificar o login no JSON Server.
-        $.get(`${baseUrl}?email=${email}&password=${password}`, function (data) {
+        $.get(`${baseUrl2}?email=${email}&password=${password}`, function (data) {
             console.log(data)
             if (data.length > 0) {
                 console.log(data)
