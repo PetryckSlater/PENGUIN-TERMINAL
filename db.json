@@ -1,15 +1,16 @@
- [
-      {
-          "id": 1,
-          "name": "Nome do Usuário 1",
-          "email": "usuario1@gmail.com",
-          "password": "senha1"
-      },
-      {
-          "id": 2,
-          "name": "Nome do Usuário 2",
-          "email": "usuario2@gmail.com",
-          "password": "senha2"
-      }
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "leonardo",
+      "email": "usuario1@gmail.com",
+      "password": "senha1"
+    },
+    {
+      "id": 2,
+      "email": "usuario2@gmail.com",
+      "password": "senha2"
+    }
+    
   ]
-
+}
