@@ -73,11 +73,18 @@
     <script>
       function myFunction() {
         var element = document.body;
-        element.classList.toggle("light-theme");
-        element.classList.toggle("dark-theme");
+        element.dataset.bsTheme =
+          element.dataset.bsTheme == "light" ? "dark" : "light";
       }
-
-      // Resto do seu código JavaScript
+      function stepFunction(event) {
+        debugger;
+        var element = document.getElementsByClassName("collapse");
+        for (var i = 0; i < element.length; i++) {
+          if (element[i] !== event.target.ariaControls) {
+            element[i].classList.remove("show");
+          }
+        }
+      }
     </script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
