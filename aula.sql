@@ -21,3 +21,5 @@ CREATE TABLE UsuariosFacebook (
     Email VARCHAR(100) UNIQUE,
     FacebookID VARCHAR(100) -- ID fornecido pelo Facebook para identificar o usuário
 );
+-- o professor sugeriu fazer uma tabela so , mas com uma coluna amais com a origem do login , como por exemplo:
+--origem Gooogle -> se google ai coloca o google id, nao sei explicar melhorque isso' 
